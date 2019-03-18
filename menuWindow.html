@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+
+    <nav>
+        <div class = "nav-wrapper">
+            <a class= "brand-logo center"> BuBoku </a>
+        </div>
+    </nav>
+
+    <table id = "buttontable">
+        <tr>
+            <td style="text-align: center"> <a class="waves-effect waves-light btn" id="easyBtn"> Easy </a> </td>
+        </tr>
+        <tr>
+            <td style="text-align: center"> <a class="waves-effect waves-light btn" id="medBtn"> Medium </a> </td>
+        </tr> 
+        <tr>
+            <td style="text-align: center"> <a class="waves-effect waves-light btn" id="hardBtn"> Hard </a> </td>
+        </tr>
+
+    </table>
+
+
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        const notifyEasyBtn = document.getElementById("easyBtn");
+        const notifyMedBtn = document.getElementById("medBtn");
+        const notifyHardBtn = document.getElementById("hardBtn");
+
+        notifyEasyBtn.addEventListener('click', function(e){
+            e.preventDefault();
+            const item = "easy";
+            ipcRenderer.send('item:gamemode', item);         
+        });
+
+        notifyMedBtn.addEventListener('click', function(e){
+            e.preventDefault();
+            const item = "medium";
+            ipcRenderer.send('item:gamemode', item); 
+        });
+
+        notifyHardBtn.addEventListener('click', function(e){
+            e.preventDefault();
+            const item = "hard";
+            ipcRenderer.send('item:gamemode', item); 
+        });
+        
+    </script>
+</body>
+</html>

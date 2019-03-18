@@ -1,0 +1,16 @@
+td {
+    border:1px solid black;
+    width:20px;
+    height:20px;
+    text-align:center;
+    cursor:pointer;
+  }
+  
+  .chooseNumber {
+    background-color: rgb(238, 110, 115);
+    color: white;
+  }
+  .selectedNumber {
+    background-color: white;
+    color: rgb(238, 110, 115);
+  }
