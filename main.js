@@ -2,11 +2,10 @@ const electron = require('electron');
 const url = require('url');
 const path = require('path');
 
-const {app, BrowserWindow, Menu, ipcMain} = electron;
+const {app, BrowserWindow, Menu, ipcMain, dialog} = electron;
 
 let menuWindow
 let gameWindow
-
 
 // Listen for app to be ready
 app.on('ready', function(){
@@ -23,6 +22,19 @@ app.on('ready', function(){
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     Menu.setApplicationMenu(mainMenu);
 });
+
+function mainMenuScreen(){
+    menuWindow = new BrowserWindow({});
+
+    menuWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'menuWindow.html'),
+        protocol: 'file',
+        slashes: true
+    }));
+
+    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+    Menu.setApplicationMenu(mainMenu);
+}
 
 // Catch item:gamemode
 ipcMain.on('item:gamemode', function(e, item){
@@ -51,8 +63,8 @@ function createEasyGame(){
         slashes: true
     }));
 
-    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-    Menu.setApplicationMenu(mainMenu);
+    const gameMenu = Menu.buildFromTemplate(gameMenuTemplate);
+    Menu.setApplicationMenu(gameMenu);
 
     menuWindow.close();
 }
@@ -68,8 +80,8 @@ function createMediumGame(){
         slashes: true
     }));
 
-    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-    Menu.setApplicationMenu(mainMenu);
+    const gameMenu = Menu.buildFromTemplate(gameMenuTemplate);
+    Menu.setApplicationMenu(gameMenu);
 
     menuWindow.close();
 }
@@ -85,8 +97,8 @@ function createHardGame(){
         slashes: true
     }));
 
-    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-    Menu.setApplicationMenu(mainMenu);
+    const gameMenu = Menu.buildFromTemplate(gameMenuTemplate);
+    Menu.setApplicationMenu(gameMenu);
 
     menuWindow.close();
 }
@@ -105,5 +117,42 @@ const mainMenuTemplate = [
                 }
             }
         ]
+    }
+];
+
+// dialog box warning user when clicking new game label
+const options = {
+    type: "warning",
+    buttons: ["Cancel", "Yes, please", "No, thanks"],
+    defaultId: 2,
+    title: "Warning",
+    message: "Do you want to do this?",
+    detail: "Starting a new game will delete your current game",
+};
+
+const gameMenuTemplate = [
+    {
+        // Delete this later 
+        label: "Developer Tools",
+        submenu:[
+            {
+                label: 'Toggle DevTools',
+                accelerator: process.platform == "darwin" ? 'Command+I' : "Ctrl+I",
+                click(item, focusedWindow){
+                    focusedWindow.toggleDevTools();
+                }
+            }
+        ]
+    },
+    {
+        label: "New Game",
+        click(item, focusedWindow){
+            dialog.showMessageBox(null, options, (response) => {
+                if (response == 1){
+                    mainMenuScreen();
+                    focusedWindow.close();
+                }
+            });
+        }
     }
 ]
