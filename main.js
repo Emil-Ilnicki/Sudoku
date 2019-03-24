@@ -56,6 +56,8 @@ ipcMain.on('item:gamemode', function(e, item){
 function createEasyGame(){
 
     gameWindow = new BrowserWindow({});
+    gameWindow.maximize();
+
 
     gameWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'easy.html'),
@@ -73,6 +75,7 @@ function createEasyGame(){
 function createMediumGame(){
 
     gameWindow = new BrowserWindow({});
+    gameWindow.maximize();
 
     gameWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'medium.html'),
@@ -90,6 +93,7 @@ function createMediumGame(){
 function createHardGame(){
 
     gameWindow = new BrowserWindow({});
+    gameWindow.maximize();
 
     gameWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'hard.html'),
