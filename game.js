@@ -12,9 +12,21 @@ var sudokuGame = {
 
 
     start: function(){
-        for(var i = 0; i < 9; i++){
+        var gridSize;
+        var path = window.location.pathname;
+        var page = path.split('/').pop();
+        
+        if(page == "hard.html"){
+            gridSize = 9;
+        }else if (page == "medium.html"){
+            gridSize = 6;
+        }else{
+            gridSize = 3;
+        }
+
+        for(var i = 0; i < gridSize; i++){
             var row = $('<tr></tr>');
-            for (var j = 0; j < 9; j++){
+            for (var j = 0; j < gridSize; j++){
                 var block = $('<td class="boxEdit"></td>');
                 block.attr('id','Block'+ '_' + i + '_' + j).text(sudokuGame.matrix[i][j]);
                 row.append(block);
