@@ -11,6 +11,10 @@ var sudokuGame = {
     ],
 
 
+    findValue: function(){
+        var random = Math.floor(Math.random() * 10);
+    },
+
     start: function(){
         var gridSize;
         var path = window.location.pathname;
