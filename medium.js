@@ -11,39 +11,39 @@ var sudokuGame = {
                 var num;
                 switch(random){
                     case 0:
-                        num = " ";
+                        num = '';
                         break;
                     case 1:
-                        num = "1";
+                        num = '1';
                         break;
                     case 2:
-                        num = "2";
+                        num = '2';
                         break;
                     case 3:
-                        num = "3";
+                        num = '3';
                         break;            
                     case 4:
-                        num = "4";
+                        num = '4';
                         break;            
                     case 5:
-                        num = "5";
+                        num = '5';
                         break;            
                     case 6:
-                        num = "6";
+                        num = '6';
                         break;            
                     case 7:
-                        num = "7";
+                        num = '7';
                         break;            
                     case 8:
-                        num = "8";
+                        num = '8';
                         break;            
                     case 9:
-                        num = "9";
+                        num = '9';
                         break;            
                 }
                     matrix[i][j] = num;
 
-                if (matrix[i][j] != " "){
+                if (matrix[i][j] != ''){
                     length++;
                 }    
             }
@@ -54,8 +54,8 @@ var sudokuGame = {
             while (length > 11){
                 var randomOne = Math.floor(Math.random() * 6);
                 var randomTwo = Math.floor(Math.random() * 6);
-                if (matrix[randomOne][randomTwo] != " "){
-                    matrix[randomOne][randomTwo] = " ";
+                if (matrix[randomOne][randomTwo] != ''){
+                    matrix[randomOne][randomTwo] = '';
                     length--;
                 }    
             }
