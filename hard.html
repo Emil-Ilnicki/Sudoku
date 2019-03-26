@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Hard</title>
-</head>
-<link rel="stylesheet" type="text/css" href="numbers.css">
-<body>
+<html>
+    <head>
+        <meta charset="utf-8">
+         <title>Test</title>
+        <meta name="description">
+        <script src="jquery-2.0.3.min.js"></script>
+        <script src="hard.js"></script>
+        <link rel="stylesheet" href="numbers.css">
+    </head>
+    <body>
+        <script type="text/javascript">
+        $( document ).ready( function() {
+            var game = Sudoku.getInstance();
+            $( '#container').append( game.getGameBoard() );
+            game.reset();
 
-    <table id = "sudokuGrid"  border="1"> 
-    </table>
-
-<section id = "selectorTable">
-    <table id = "selector" border = "1">
-        <tr>
-            <td class="chooseNumber">1</td>
-            <td class="chooseNumber">2</td>
-            <td class="chooseNumber">3</td>
-            <td class="chooseNumber">4</td>
-            <td class="chooseNumber">5</td>
-            <td class="chooseNumber">6</td>
-            <td class="chooseNumber">7</td>
-            <td class="chooseNumber">8</td>
-            <td class="chooseNumber">9</td>
-        </tr>
-    </table>
-</section>
-
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-  <script type="text/javascript" src="hard.js"></script>
-</body>
+            // $( '#solve').click( function() {
+            //  game.solve();
+            // } );
+            // $( '#validate').click( function() {
+            //  game.validate();
+            // } );
+            $( '#reset').click( function() {
+                game.reset();
+            } );
+        } );
+        </script>
+        <h1>Sudoku</h1>
+        <div id="container"></div>
+        <div id="menu" class="sudoku-menu">
+<!--            <button id="solve">Solve</button>
+            <button id="validate">Validate Board</button>
+ -->            <button id="reset">Reset</button>
+        </div>
+    </body>
 </html>
