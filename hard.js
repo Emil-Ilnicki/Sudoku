@@ -36,6 +36,7 @@ var sudokuGame = {
         }
 
     $("#sudokuGridSolved").show();
+    $("#Solve").hide();
 
 
 
