@@ -1,2 +1,2 @@
 # Sudoku
-This is the branch that we ask you to mark, it includes the test cases in the testcases folder and has the working program included.
+This branch is our attempt to create a Sudoku game, however due to the time constraints our main focus shifted into implementing only the user stories that we wanted along with their respective testing files. As a result, please only mark the files located in the "good-copy" branch
