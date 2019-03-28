@@ -1,0 +1,2 @@
+The following user story did not recieve any integration tests becasue the function is independent and does not call on any other
+functions to complete its task
