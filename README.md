@@ -1,6 +1,11 @@
 # Sudoku
 This is the branch that we ask you to mark, it contains the three of our user stories that we created in deliverable one of our project.
 
+## How to run the game
+1. Pull all files from this branch
+2. Run gitbash on the pulled folder
+3. type "npm start" into the command line
+
 ## User Stories Implemented
 ### User Story 101
 **Description**
