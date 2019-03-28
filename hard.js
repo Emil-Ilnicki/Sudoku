@@ -1,63 +1,29 @@
 var sudokuGame = {
 
-    
+    // function used to print out a solveable game to the html grid
     start: function(){
-        var length = 0;
-        var matrix = [];
-        for(var i = 0; i < 9; i++){
-            matrix[i] = [];
-            for (var j = 0; j < 9; j++){
-                var random = Math.floor(Math.random() * 10);
-                var num;
-                switch(random){
-                    case 0:
-                        num = '';
-                        break;
-                    case 1:
-                        num = '1';
-                        break;
-                    case 2:
-                        num = '2';
-                        break;
-                    case 3:
-                        num = '3';
-                        break;            
-                    case 4:
-                        num = '4';
-                        break;            
-                    case 5:
-                        num = '5';
-                        break;            
-                    case 6:
-                        num = '6';
-                        break;            
-                    case 7:
-                        num = '7';
-                        break;            
-                    case 8:
-                        num = '8';
-                        break;            
-                    case 9:
-                        num = '9';
-                        break;            
+
+        matrix = [
+            [0,0,0,8,0,0,9,6,0],
+            [1,0,0,0,0,0,0,0,8],
+            [0,0,0,3,5,0,0,0,0],
+            [0,0,3,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,7],
+            [0,0,0,0,0,3,0,0,1],
+            [0,2,1,0,0,4,8,9,6],
+            [8,3,7,0,0,0,0,4,2],
+            [0,0,4,0,0,0,0,1,0],
+
+        ]
+
+        for(var j = 0; j<9;j++){
+            for(var k = 0; k<9;k++){
+
+                if(matrix[j][k]==0){
+                    matrix[j][k] = ''
                 }
-                    matrix[i][j] = num;
 
-                if (matrix[i][j] != ''){
-                    length++;
-                }    
-            }
-        }
 
-        if (length > 39){
-
-            while (length > 39){
-                var randomOne = Math.floor(Math.random() * 9);
-                var randomTwo = Math.floor(Math.random() * 9);
-                if (matrix[randomOne][randomTwo] != ''){
-                    matrix[randomOne][randomTwo] = '';
-                    length--;
-                }    
             }
 
         }
@@ -85,66 +51,55 @@ var sudokuGame = {
             }
         }
 
-        sudokuGame.play(matrix);
-
+   
     },
 
-    play: function(e){
-         $('.boxEdit').click(function(event){
-            event.stopPropagation();
-            if($(this).hasClass('edit') == true){
-                $('.selectActive').removeClass('selectActive');
-                $(this).addClass('selectActive');
-                $('selector').css('top', event.pageY).css('left', event.pageX).addClass('active');
-            }
-        });
+    //  Solve function used to write the solution to the html grid
+    solve: function(){
 
-        $('.selector div').click(function(){
-            var input = $(this).text();
-            var findBlock = $('.selectActive').attr('id').split('_');
-
-            var currentRow = parseInt(findBlock[1]);
-            var currentCol = parseInt(findBlock[2]);
-            matrix[currentRow][currentCol] = parseInt(input);
-
-            $('.wrong').removeClass('wrong');
-            sudokuGame.compare(matrix);
-
-            $('selectActive').text(parseInt(input));
-            $('.selectActive').removeClass('selectActive');
-            $('selector').removeClass('active');
-        });
-
-        $('.html').click(function(){
-            $('.selectActive').removeClass('selectActive');
-            $('selector').removeClass('active');
-        })
-    },
-
-    compare: function(e){
-        for (var i = 0; i < 9; i++){
+        var matrixSolved = [
+            [3,4,2,8,1,7,9,6,5],
+            [1,5,6,2,4,9,3,7,8],
+            [7,8,9,3,5,6,1,2,4],
+            [2,1,3,4,7,5,6,8,9],
+            [4,6,5,1,9,8,2,3,7],
+            [9,7,8,6,2,3,4,5,1],
+            [5,2,1,7,3,4,8,9,6],
+            [8,3,7,9,6,1,5,4,2],
+            [6,9,4,5,8,2,7,1,3],
+        ]
+        
+        for(var i = 0; i < 9; i++){
+            var row = $('<tr></tr>');
             for (var j = 0; j < 9; j++){
-                for (var h = 0; h < 9; h++){
-                    if ((matrix [i][j] == matrix [i][h] && j != h) || (matrix[i][j] == matrix[h][j] && i != h)){
-                        $('#Block_' + i + '_' + j).addClass('wrong');
-                    };
+                var block = $('<td class="boxEdit edit"></td>');
+                block.attr('id','Block'+ '_' + i + '_' + j).text(matrixSolved[i][j]);
+                row.append(block);
 
+                if(matrixSolved[i][j] != ''){
+                    block.removeClass ('edit');
                 }
 
-                for (var k = 0; k < 3; k++){
-                    for (var l = 0; l < 3; l++){
-                        if(matrix[i][j] == matrix[parseInt(i/3) * 3 + k][parseInt(j/3) * 3 + l] && (!(i == parseInt(i/3) * 3 + k && j == parseInt(j/3) * 3 + l))){
-                            $('#Block_' + i + '_' + j).addClass('wrong');
-                        };
-                    }
+                var sectionOne = Math.floor(i/3);
+                var sectionTwo = Math.floor(j/3);
+
+                if (sectionOne%2 == sectionTwo%2){
+                    block.addClass('sectionone');
+                }else{
+                    block.addClass('sectiontwo');
                 }
+                $('#sudokuGrid').append(row);
             }
         }
-
     }
 
 }
 
 $(document).ready(function(){
     sudokuGame.start();
+    $('#solveButton').click(function(){
+        $("#sudokuGrid").empty();
+        sudokuGame.solve();
+    })
 })
+
